@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{E0EA0CB0-3A90-4496-803B-AC8051D4CBEC}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.PASSWORDVAULT PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PASSWORDVAULT/Data/AppDbContext.cs">
+    <Files>
+      <File FileName="PASSWORDVAULT/Program.cs" Line="1" Column="1" />
+      <File FileName="PASSWORDVAULT/Models/Credential.cs" Line="1" Column="1" />
+      <File FileName="PASSWORDVAULT/Services/PasswordServices.cs" Line="1" Column="1" />
+      <File FileName="PASSWORDVAULT/Data/AppDbContext.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PASSWORDVAULT" expanded="True">
+            <Node name="PASSWORDVAULT" expanded="True">
+              <Node name="Models" expanded="True">
+                <Node name="Credential.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>

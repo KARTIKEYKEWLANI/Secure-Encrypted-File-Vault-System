@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PASSWORDVAULT.Models.Credential>
+
+@{
+    ViewData["Title"] = "Password Vault Dashboard";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">
+            <i class="fas fa-lock me-2"></i>Password Vault
+        </h2>
+        <a class="btn btn-success" href="/Vault/Add">
+            <i class="fas fa-plus me-1"></i>Add New Credential
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 text-primary">
+                <i class="fas fa-table me-2"></i>Stored Credentials
+            </h5>
+            <div class="input-group w-auto">
+                <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+                <input id="searchInput" type="text" class="form-control" placeholder="Search site...">
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0" id="vaultTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Site</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-site="@item.Site.ToLower()">
+                            <td>@item.Site</td>
+                            <td>@item.Username</td>
+                            <td>
+                                <span class="password-hidden">********</span>
+                                <span class="password-actual d-none">@item.EncryptedPassword</span>
+                                <button class="btn btn-sm btn-outline-secondary toggle-password ms-2">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="/Vault/Edit/@item.Id" class="btn btn-outline-primary" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="post" asp-action="Delete" onsubmit="return confirm('Are you sure?');">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-outline-danger" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .password-hidden {
+            font-family: monospace;
+        }
+
+        .toggle-password {
+            border: none;
+            background: none;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>document.addEventListener("DOMContentLoaded", function () {
+            // Toggle password visibility
+            document.querySelectorAll(".toggle-password").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    const row = btn.closest("td");
+                    const hidden = row.querySelector(".password-hidden");
+                    const actual = row.querySelector(".password-actual");
+                    hidden.classList.toggle("d-none");
+                    actual.classList.toggle("d-none");
+                });
+            });
+
+            // Filter table rows
+            document.getElementById("searchInput").addEventListener("keyup", function () {
+                const filter = this.value.toLowerCase();
+                document.querySelectorAll("#vaultTable tbody tr").forEach(row => {
+                    const site = row.dataset.site;
+                    row.style.display = site.includes(filter) ? "" : "none";
+                });
+            });
+        });</script>
+}
